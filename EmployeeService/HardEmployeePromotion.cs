@@ -40,7 +40,7 @@ namespace EmployeeService
 
         public void EditEmployeeDetailsById()
         {
-            Console.WriteLine("Enter employee Id for get details");
+            Console.WriteLine("Enter employee Id for edit details");
             if (int.TryParse(Console.ReadLine(), out int id))
             {
                 var emp = employees.Where(e => e.Key == id).First().Value;
@@ -97,26 +97,49 @@ namespace EmployeeService
         {
             foreach (var item in employees.Keys)
             {
-                Console.WriteLine("___________________________________\n___________________________________");
+                Console.WriteLine("___________________________________");
                 Console.WriteLine(employees[item]);
+                Console.WriteLine("___________________________________");
             }
         }
 
         public void GetMenu()
-        {
-            PrintMenuUnits();
-        }
-
-        private void PrintMenuUnits()
         {
             int choice = 0;
             do
             {
                 Console.WriteLine("EmployeePromotion Menu \n\n 1) Get all employees details \n 2) Get employee details \n 3) Edit employee details \n 4) Delete employee \n");
                 Console.Write("Please enter a number of action: ");
-                if (!int.TryParse(Console.ReadLine(), out choice))
-                    Console.WriteLine("Please enter an integer value! Try again...");
 
+                while (!int.TryParse(Console.ReadLine(), out choice))
+                {
+                    Console.WriteLine("Please enter an integer value! Try again...");
+                }
+
+                switch (choice)
+                {
+                    case 1:
+                        PrintAllEmployee();
+
+                        break;
+                    case 2:
+                        PrintEmployeeDetailsById();
+                        break;
+                    case 3:
+                        EditEmployeeDetailsById();
+                        break;
+                    case 4:
+                        RemoveEmployeeById();
+                        break;
+                    default:
+                        break;
+                }
+                Console.WriteLine("Press any key to go to the menu or 'E' to exit...");
+                var input = Console.ReadKey();
+                if (input.Key == ConsoleKey.E)
+                {
+                    break;
+                }
                 Console.Clear();
             } while (true);
         }
