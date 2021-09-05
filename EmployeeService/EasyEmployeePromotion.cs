@@ -12,6 +12,9 @@ namespace EmployeeService
         {
         }
 
+        /// <summary>
+        /// Create instances of Employee class with data from user input
+        /// </summary>
         public void GetEmployeeNamesFromInput()
         {
             Console.WriteLine("Please enter the employee names in the order of their eligibility \nfor promotion(Please enter blank to stop)");
@@ -27,6 +30,9 @@ namespace EmployeeService
             PrintAllEmployee(employees);
         }
 
+        /// <summary>
+        /// Print Employee`s position in promotion list by Name from user input
+        /// </summary>
         public void PrintEmployeePositionByName()
         {
             Console.WriteLine("Please enter the name of the employee to check promotion position:");
@@ -36,19 +42,29 @@ namespace EmployeeService
             else Console.WriteLine($"{input} employee is not on the promotion list");
         }
 
-        public void OptimazeCollectionCapacity()
+        /// <summary>
+        /// Optimize the capacity to the actual number of elements in employee collection,
+        //     if that number is less than a threshold value.
+        /// </summary>
+        public void OptimizeCollectionCapacity()
         {
             Console.WriteLine($"The current size of the collection is {employees.Capacity}");
             employees.TrimExcess();
             Console.WriteLine($"TThe size after removing the extra space is {employees.Capacity}");
         }
 
+        /// <summary>
+        /// Ordered promotion list by Name and print it.
+        /// </summary>
         public void PrintOrderedPromotionList()
         {
             IEnumerable<Employee> orderedEmployees = employees.OrderBy(e => e.Name);
             PrintAllEmployee(orderedEmployees);
         }
 
+        /// <summary>
+        /// Write to Console all Employees details from promotion list
+        /// </summary>
         public void PrintAllEmployee(IEnumerable<Employee> employees)
         {
             Console.WriteLine("Promoted employee list:");

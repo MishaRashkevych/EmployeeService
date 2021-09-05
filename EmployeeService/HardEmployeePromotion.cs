@@ -16,6 +16,9 @@ namespace EmployeeService
             employees.Add(1004, new Employee() { Id = 1004, Name = "Jack", Age = 50, Salary = 1000 });
         }
 
+        /// <summary>
+        /// Create instances of Employee class with data from user input
+        /// </summary>
         public void GetEmployeeNamesFromInput()
         {
             Console.WriteLine("Please enter the employee details)");
@@ -36,6 +39,9 @@ namespace EmployeeService
             } while (Console.ReadKey().Key == ConsoleKey.N);
         }
 
+        /// <summary>
+        /// Edit Employee details from promotion list by Id from user input
+        /// </summary>
         public void EditEmployeeDetailsById()
         {
             Console.WriteLine("Enter employee Id for edit details");
@@ -88,6 +94,9 @@ namespace EmployeeService
             else Console.WriteLine("-- Message -- Id must be an integer value!");
         }
 
+        /// <summary>
+        /// Write to Console Employee details from promotion list by Id from user input
+        /// </summary>
         public void PrintEmployeeDetailsById()
         {
             Console.WriteLine("Enter employee Id for get details");
@@ -116,6 +125,9 @@ namespace EmployeeService
             else Console.WriteLine("-- Message -- Id must be an integer value!");
         }
 
+        /// <summary>
+        /// Remove Employee from promotion list by Id from user input
+        /// </summary>
         public void RemoveEmployeeById()
         {
             Console.WriteLine("Enter employee`s Id for remove:");
@@ -132,6 +144,9 @@ namespace EmployeeService
             else Console.WriteLine("-- Message -- Id must be an integer value!");
         }
 
+        /// <summary>
+        /// Write to Console all Employees details from promotion list
+        /// </summary>
         private void PrintAllEmployee()
         {
             foreach (var item in employees.Keys)
@@ -142,6 +157,9 @@ namespace EmployeeService
             }
         }
 
+        /// <summary>
+        /// Print promotion list menu in output stream and get actions
+        /// </summary>
         public void GetMenu()
         {
             int choice = 0;

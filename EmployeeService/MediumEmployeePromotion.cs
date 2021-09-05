@@ -13,6 +13,9 @@ namespace EmployeeService
         {
         }
 
+        /// <summary>
+        /// Create instances of Employee class with data from user input
+        /// </summary>
         public void GetEmployeeNamesFromInput()
         {
             Console.WriteLine("Please enter the employee details)");
@@ -33,12 +36,18 @@ namespace EmployeeService
             } while (Console.ReadKey().Key == ConsoleKey.N);
         }
 
+        /// <summary>
+        /// Sort employees by salary value in promotion list and print all employees details
+        /// </summary>
         public void SortBySalary()
         {
             var sortedEmployees = employees.OrderBy(v => v.Value.Salary).ToDictionary(v => v.Key, v => v.Value);
             PrintAllEmployee(sortedEmployees);
         }
 
+        /// <summary>
+        /// Write to Console Employee details from promotion list by Id from user input
+        /// </summary>
         public void PrintEmployeeDetailsById()
         {
             Console.WriteLine("Enter employee Id for get details");
@@ -54,6 +63,9 @@ namespace EmployeeService
             else Console.WriteLine("Id must be an integer value!");
         }
 
+        /// <summary>
+        /// Write to Console Employee details from promotion list by Name from user input
+        /// </summary>
         public void PrintEmployeeDetailsByName()
         {
             Console.WriteLine("Please enter employee name for get details");
@@ -66,6 +78,9 @@ namespace EmployeeService
             else Console.WriteLine($"No one employee with {name} name in list!");
         }
 
+        /// <summary>
+        /// Write to Console all elder Employees details from promotion list by Name from user input
+        /// </summary>
         public void PrintAllEmployeeElderThan()
         {
             Console.WriteLine("Please enter employee name for get details");
@@ -75,6 +90,9 @@ namespace EmployeeService
             PrintAllEmployee(emp);
         }
 
+        /// <summary>
+        /// Write to Console all Employees details from promotion list
+        /// </summary>
         private void PrintAllEmployee(Dictionary<int, Employee> employees)
         {
             foreach (var item in employees.Keys)
