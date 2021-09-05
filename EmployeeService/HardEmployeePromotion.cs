@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EmployeeService
 {
@@ -32,7 +30,7 @@ namespace EmployeeService
                 }
                 else
                 {
-                    Console.WriteLine($"Promotion list already contain id {employee.Id}");
+                    Console.WriteLine($"-- Message -- Promotion list already contain id {employee.Id}");
                 }
                 Console.WriteLine("Press \"N\" to add new employee or press any key to go on");
             } while (Console.ReadKey().Key == ConsoleKey.N);
@@ -41,56 +39,97 @@ namespace EmployeeService
         public void EditEmployeeDetailsById()
         {
             Console.WriteLine("Enter employee Id for edit details");
-            if (int.TryParse(Console.ReadLine(), out int id))
+            bool flag = int.TryParse(Console.ReadLine(), out int id);
+            if (flag)
             {
-                var emp = employees.Where(e => e.Key == id).First().Value;
-                if (emp != null)
+                Employee employee = null;
+                try
                 {
-                    PrintEmployeeDetailsById(id);
-
-                    Console.WriteLine("Enter new name or press 'Enter' to go next");
-                    string name = Console.ReadLine();
-                    if (name != string.Empty) emp.Name = name;
-
-                    Console.WriteLine("Enter new Age or press 'Enter' to go next");
-                    int age = Convert.ToInt32(Console.ReadLine());
-                    if (age != 0) emp.Age = age;
-
-                    Console.WriteLine("Enter new Age or press 'Enter' to go next");
-                    int salary = Convert.ToInt32(Console.ReadLine());
-                    emp.Salary = salary;
+                    employee = employees.Where(e => e.Key == id).First().Value;
                 }
-                else Console.WriteLine($"No one employee with {id} Id in list!");
+                catch (InvalidOperationException e)
+                {
+                    Console.WriteLine($"-- Message -- No one employee with {id} Id in list!");
+                    Console.WriteLine("-- Message -- " + e.Message);
+                    return;
+                }
+
+                if (employee != null)
+                {
+                    Console.WriteLine("____________________\n" + employee + "\n____________________");
+
+                    Console.WriteLine("Enter new Name or press 'Enter' to go next");
+                    string name = Console.ReadLine();
+                    if (name != string.Empty) employee.Name = name;
+
+                    Console.WriteLine("Enter new Age or press 'Enter' to go next");
+                    string inpAge = Console.ReadLine();
+                    int age = 0;
+                    if (inpAge != string.Empty && int.TryParse(inpAge, out age) && age != 0) employee.Age = age;
+                    else 
+                    if (inpAge != string.Empty || age != 0)
+                    {
+                        Console.WriteLine("-- Message -- Incorrect input! Age must be an integer value!");
+                        return;
+                    }
+                            
+                    Console.WriteLine("Enter new Salary or press 'Enter' to go next");
+                    string inpSalary = Console.ReadLine();
+                    int salary = 0;
+                    if (inpSalary != string.Empty && int.TryParse(inpAge, out salary) && salary != 0) employee.Salary = salary;
+                    else if (inpSalary != string.Empty || salary != 0)
+                    {
+                        Console.WriteLine("-- Message -- Incorrect input! Salary must be an integer value!");
+                        return;
+                    }
+                }
+                else Console.WriteLine($"-- Message -- No one employee with {id} Id in list!");
             }
-            else Console.WriteLine("Id must be an integer value!");
+            else Console.WriteLine("-- Message -- Id must be an integer value!");
         }
 
-        public void PrintEmployeeDetailsById(int id = 0)
+        public void PrintEmployeeDetailsById()
         {
             Console.WriteLine("Enter employee Id for get details");
-            if (int.TryParse(Console.ReadLine(), out id))
+            if (int.TryParse(Console.ReadLine(), out int id))
             {
-                var emp = employees.Where(e => e.Key == id).First().Value;
-                if (emp != null)
+                Employee employee = null;
+                try
                 {
-                    Console.WriteLine(emp);
+                    employee = employees.Where(e => e.Key == id).First().Value;
                 }
-                else Console.WriteLine($"No one employee with {id} Id in list!");
+                catch (InvalidOperationException e)
+                {
+                    Console.WriteLine($"-- Message -- No one employee with {id} Id in list!");
+                    Console.WriteLine("-- Message -- " + e.Message);
+                    return;
+                }
+                if (employee != null)
+                {
+                    Console.WriteLine("__________________");
+                    Console.WriteLine(employee);
+                    Console.WriteLine("__________________");
+
+                }
+                else Console.WriteLine($"-- Message -- No one employee with {id} Id in list!");
             }
-            else Console.WriteLine("Id must be an integer value!");
+            else Console.WriteLine("-- Message -- Id must be an integer value!");
         }
 
         public void RemoveEmployeeById()
         {
+            Console.WriteLine("Enter employee`s Id for remove:");
             if (int.TryParse(Console.ReadLine(), out int id))
             {
-                Console.WriteLine("Are you sure");
-                if (employees.Remove(id))
-                    Console.WriteLine($"Employee with {id} Id removed from list!");
+                Console.WriteLine("Are you sure? (Y/N)");
+                var key = Console.ReadKey().Key;
+                Console.WriteLine();
+                if (key == ConsoleKey.Y && employees.Remove(id))
+                    Console.WriteLine($"-- Message -- Employee with {id} Id removed from list!");
                 else
-                    Console.WriteLine($"No one employee with {id} Id in list!");
+                    Console.WriteLine($"-- Message -- No one employee with {id} Id in list!");
             }
-            else Console.WriteLine("Id must be an integer value!");
+            else Console.WriteLine("-- Message -- Id must be an integer value!");
         }
 
         private void PrintAllEmployee()
@@ -113,27 +152,32 @@ namespace EmployeeService
 
                 while (!int.TryParse(Console.ReadLine(), out choice))
                 {
-                    Console.WriteLine("Please enter an integer value! Try again...");
+                    Console.WriteLine("-- Message -- Please enter an integer value! Try again...");
+                    Console.Write("Please enter a number of action: ");
                 }
 
                 switch (choice)
                 {
                     case 1:
+                        Console.Clear();
                         PrintAllEmployee();
-
                         break;
                     case 2:
+                        Console.Clear();
                         PrintEmployeeDetailsById();
                         break;
                     case 3:
+                        Console.Clear();
                         EditEmployeeDetailsById();
                         break;
                     case 4:
+                        Console.Clear();
                         RemoveEmployeeById();
                         break;
                     default:
                         break;
                 }
+                Console.WriteLine();
                 Console.WriteLine("Press any key to go to the menu or 'E' to exit...");
                 var input = Console.ReadKey();
                 if (input.Key == ConsoleKey.E)

@@ -35,8 +35,8 @@ namespace EmployeeService
         }
         public override string ToString()
         {
-            return " Employee ID : " +id + "\nName: " +name + "\nAge: " +age +
-         "\nSalary: " +salary;
+            return "Employee ID : " +id + "\nName: " +name + "\nAge: " +age +
+            "\nSalary: " +salary;
         }
 
         public int CompareTo(Employee employee) => this.salary > employee.salary ? 1 : this.salary < employee.salary ? -1 : 0;
